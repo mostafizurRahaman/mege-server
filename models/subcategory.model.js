@@ -35,6 +35,13 @@ const subCategorySchema = mongoose.Schema(
             required: true,
          },
       },
+      products: [
+         {
+            type: ObjectId,
+            required: true,
+            ref: "Product",
+         },
+      ],
       createdBy: {
          name: {
             type: String,
