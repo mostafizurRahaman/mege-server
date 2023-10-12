@@ -1,3 +1,8 @@
+const {
+   getAllSubCategoriesService,
+   createSubCategoryService,
+} = require("../services/subCategories.service");
+
 exports.getSubCategories = async (req, res, next) => {
    try {
       const filter = { ...req.query };
@@ -10,11 +15,27 @@ exports.getSubCategories = async (req, res, next) => {
          queryObject.limit = limit * 1;
       }
 
-      const subCategories = await getSubCategoriesService(filter, queryObject);
+      const subCategories = await getAllSubCategoriesService(
+         filter,
+         queryObject
+      );
       res.status(200).send({
          status: "success",
          message: "Sub Categories found successfully",
          data: subCategories,
+      });
+   } catch (err) {
+      next(err);
+   }
+};
+
+exports.createSubCategory = async (req, res, next) => {
+   try {
+      const subCategory = await createSubCategoryService(req.body);
+      res.status(200).send({
+         status: "success",
+         message: "sub category created successfully",
+         data: subCategory,
       });
    } catch (err) {
       next(err);

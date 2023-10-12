@@ -8,6 +8,7 @@ const app = express();
 const userRouter = require("./routes/user.route");
 const imageRouter = require("./routes/imageupload.route");
 const categoryRouter = require("./routes/category.route");
+const subCategoryRoute = require("./routes/subCategory.route");
 //  use middlewares :
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/image", imageRouter);
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/sub-category", subCategoryRoute);
 
 // export app:
 module.exports = app;

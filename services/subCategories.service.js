@@ -1,7 +1,7 @@
 const Category = require("../models/category.model");
 const SubCategory = require("../models/subcategory.model");
 
-exports.getAllSubCategories = async (filter, queryObject) => {
+exports.getAllSubCategoriesService = async (filter, queryObject) => {
    console.log(queryObject, filter);
    const subCategories = await SubCategory.find(filter)
       .skip(queryObject.skip)
@@ -11,9 +11,17 @@ exports.getAllSubCategories = async (filter, queryObject) => {
    return { totalSubCategories, page, subCategories };
 };
 
-exports.createSubCategories = async (data) => {
+exports.createSubCategoryService = async (data) => {
    const subCategory = new SubCategory(data);
    const results = await subCategory.save();
    const { _id: subCategoryId, category } = results;
-   const updateCategory = await Category.updateOne({_id: category.id}, )
+   const updateCategory = await Category.updateOne(
+      { _id: category.id },
+      { $push: { subCategories: subCategoryId } },
+      {
+         runValidators: true,
+      }
+   );
+   console.log(updateCategory);
+   return results;
 };
