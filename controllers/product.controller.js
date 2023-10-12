@@ -14,7 +14,7 @@ exports.getAllProducts = async (req, res, next) => {
       if (req.query.page) {
          const { page = 1, limit = 10 } = req.query;
          queryObject.skip = (page - 1) * (limit * 1);
-         queryObject.limit = limit * 1;
+         queryObject.limit = parseInt(limit);
       }
       const products = await getAllProductService(filter, queryObject);
       res.status(200).send({
