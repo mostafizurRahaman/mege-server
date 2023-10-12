@@ -21,8 +21,8 @@ const subCategorySchema = mongoose.Schema(
       banner: {
          type: String,
          trim: true,
-         validate: [validator.isURL, "Please provide a valid url"],
-         required: [true, "provide an banner image url"],
+         validate: [validator.isURL, "Please provide a valid URL"],
+         required: [true, "provide an banner image URL"],
       },
       category: {
          name: {
@@ -35,6 +35,13 @@ const subCategorySchema = mongoose.Schema(
             required: true,
          },
       },
+      products: [
+         {
+            type: ObjectId,
+            required: true,
+            ref: "Product",
+         },
+      ],
       createdBy: {
          name: {
             type: String,
@@ -49,11 +56,9 @@ const subCategorySchema = mongoose.Schema(
       updatedBy: {
          name: {
             type: String,
-            required: true,
          },
          id: {
             type: ObjectId,
-            required: true,
             ref: "User",
          },
       },

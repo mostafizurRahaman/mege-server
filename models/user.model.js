@@ -22,14 +22,15 @@ const userSchema = mongoose.Schema({
       trim: true,
       lowercase: true,
       validate: [validator.isEmail, "Please provide a valid email"],
-      required: [true, "please provide your email"],
+      unique: true,
+      required: [true, "Please provide your email"],
    },
    phone: {
       type: String,
       trim: true,
       lowercase: true,
       validate: [validator.isMobilePhone, "Please provide a valid phone"],
-      required: [true, "please provide your phone number"],
+      required: [true, "Please provide your phone number"],
    },
    password: {
       type: String,
@@ -48,23 +49,24 @@ const userSchema = mongoose.Schema({
    },
    image: {
       type: String,
-      validate: [validator.isURL, "Please provide a valid url"],
+      validate: [validator.isURL, "Please provide a valid URL"],
       required: [true, "Please provide an image"],
    },
    role: {
       type: String,
       enum: {
          values: ["admin", "dealers", "user"],
-         message: "{VALUE} shouldn't be role",
+         message: "Invalid role value",
       },
-      required: true,
+      required: [true, "Please provide a role"],
    },
    status: {
       type: String,
       enum: {
          values: ["active", "in-active"],
-         message: "{VALUE} shouldn't be status",
+         message: "Invalid status value",
       },
+      default: "active",
    },
 });
 

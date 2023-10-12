@@ -11,7 +11,9 @@ exports.getCategoryService = async (filter, queryObject) => {
 };
 
 exports.createCategoryService = async (data) => {
-   const category = new Category(data);
-   const result = await category.save();
+   // const category = new Category(data);
+   // const result = await category.save();
+   const result = await Category.create(data);
+   // console.log(result);
    return result;
 };

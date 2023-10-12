@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 const validator = require("validator");
-
 const categorySchema = mongoose.Schema(
    {
       name: {
@@ -9,16 +8,16 @@ const categorySchema = mongoose.Schema(
          trim: true,
          lowercase: true,
          unique: true,
-         required: [true, "please provide a category name"],
+         required: [true, "Please provide a category name"],
       },
       path: {
          type: String,
          trim: true,
          lowercase: true,
          unique: true,
-         required: [true, "please provide a category name"],
+         required: [true, "Please provide a category path"],
       },
-      subCategory: [
+      subCategories: [
          {
             type: ObjectId,
             required: true,
@@ -26,14 +25,14 @@ const categorySchema = mongoose.Schema(
          },
       ],
       logo: {
-         type: "String",
+         type: String,
          validate: [validator.isURL, "Please provide a valid url"],
-         required: [true, "Please provide an url"],
+         required: [true, "Please provide an URL"],
       },
       banner: {
-         type: "String",
+         type: String,
          validate: [validator.isURL, "Please provide a valid url"],
-         required: [true, "Please provide an url"],
+         required: [true, "Please provide an URL"],
       },
       createdBy: {
          name: {
