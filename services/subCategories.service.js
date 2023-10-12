@@ -1,9 +1,19 @@
+const Category = require("../models/category.model");
 const SubCategory = require("../models/subcategory.model");
 
 exports.getAllSubCategories = async (filter, queryObject) => {
    console.log(queryObject, filter);
-   const categories = await SubCategory.find(filter)
+   const subCategories = await SubCategory.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
-   
+   const totalSubCategories = await SubCategory.countDocuments(filter);
+   const page = Math.ceil(totalSubCategories / queryObject.limit);
+   return { totalSubCategories, page, subCategories };
+};
+
+exports.createSubCategories = async (data) => {
+   const subCategory = new SubCategory(data);
+   const results = await subCategory.save();
+   const { _id: subCategoryId, category } = results;
+   const updateCategory = await Category.updateOne({_id: category.id}, )
 };
