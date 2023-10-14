@@ -13,7 +13,7 @@ exports.getCategories = async (req, res, next) => {
       if (req.query.page) {
          const { page = 1, limit = 5 } = req.query;
          queryObject.skip = (page - 1) * (limit * 1);
-         queryObject.limit = limit * 1;
+         queryObject.limit = parseInt(limit);
       }
       const categories = await getCategoryService(filter, queryObject);
       res.status(200).send({

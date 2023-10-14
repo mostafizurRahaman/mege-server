@@ -2,7 +2,8 @@ const Category = require("../models/category.model");
 const SubCategory = require("../models/subcategory.model");
 
 exports.getAllSubCategoriesService = async (filter, queryObject) => {
-   console.log(queryObject, filter);
+
+   console.log("", queryObject, filter);
    const subCategories = await SubCategory.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
