@@ -74,7 +74,7 @@ exports.logIn = async (req, res, next) => {
 };
 
 exports.getMe = async (req, res, next) => {
-   console.log(req.user);
+   // console.log(req.user);
    try {
       console.log(req.user);
       const user = await findUserByEmailService(req?.user?.email);

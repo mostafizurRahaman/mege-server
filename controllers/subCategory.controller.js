@@ -1,6 +1,10 @@
 const {
    getAllSubCategoriesService,
    createSubCategoryService,
+   getSubCategoryServiceById,
+   deleteSubCategoryServiceById,
+   removeSubCategoryFromCategoryService,
+   deleteAllProductsOfSubCategoryService,
 } = require("../services/subCategories.service");
 
 exports.getSubCategories = async (req, res, next) => {
@@ -36,6 +40,69 @@ exports.createSubCategory = async (req, res, next) => {
          status: "success",
          message: "sub category created successfully",
          data: subCategory,
+      });
+   } catch (err) {
+      next(err);
+   }
+};
+
+exports.getSubCategoriesById = async (req, res, next) => {
+   try {
+      const { id } = req.params;
+      const subCategory = await getSubCategoryServiceById(id);
+      if (!subCategory) {
+         return res.status(400).send({
+            status: "failed",
+            message: "sub category couldn't found with " + id,
+         });
+      }
+
+      res.status(200).send({
+         status: "success",
+         message: "sub category found successfully",
+         data: subCategory,
+      });
+   } catch (err) {
+      next(err);
+   }
+};
+
+exports.deleteSubCategoryById = async (req, res, next) => {
+   try {
+      const { id } = req.params;
+      const subCategory = await getSubCategoryServiceById(id);
+      if (!subCategory) {
+         return res.status(200).send({
+            status: "failed",
+            message: "sub category shouldn't found with this id",
+         });
+      }
+      const { _id: subCategoryId, products, category } = subCategory;
+      console.log(products);
+      const deleteSubCategory = await deleteSubCategoryServiceById(
+         subCategoryId
+      );
+      if (!deleteSubCategory) {
+         return res.status(400).send({
+            status: "failed",
+            message: "Sub category not delete with this id",
+         });
+      }
+      const categoryUpdate = await removeSubCategoryFromCategoryService(
+         subCategoryId,
+         category
+      );
+      console.log(categoryUpdate);
+
+      const productUpdate = await deleteAllProductsOfSubCategoryService(
+         products
+      );
+
+      console.log(productUpdate);
+
+      res.status(200).send({
+         status: "success",
+         message: "sub category delete successfully",
       });
    } catch (err) {
       next(err);

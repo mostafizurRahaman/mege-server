@@ -1,9 +1,9 @@
 const Category = require("../models/category.model");
 const SubCategory = require("../models/subcategory.model");
+const Product = require("../models/product.model");
 
 exports.getAllSubCategoriesService = async (filter, queryObject) => {
-
-   console.log("", queryObject, filter);
+   // console.log("", queryObject, filter);
    const subCategories = await SubCategory.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
@@ -25,4 +25,29 @@ exports.createSubCategoryService = async (data) => {
    );
    console.log(updateCategory);
    return results;
+};
+
+exports.getSubCategoryServiceById = async (id) => {
+   const result = await SubCategory.findById(id);
+   return result;
+};
+
+exports.deleteSubCategoryServiceById = async (id) => {
+   const result = await SubCategory.deleteOne({ _id: id });
+   return result;
+};
+
+exports.removeSubCategoryFromCategoryService = async (subId, category) => {
+   const result = await Category.updateOne(
+      { _id: category.id },
+      { $pull: { subCategories: subId } }
+   );
+   
+
+   return result;
+};
+
+exports.deleteAllProductsOfSubCategoryService = async (products) => {
+   const result = Product.deleteMany({ _id: { $in: products } });
+   return result;
 };

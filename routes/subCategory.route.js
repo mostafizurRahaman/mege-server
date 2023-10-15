@@ -7,4 +7,9 @@ router
    .get(subCategoryController.getSubCategories)
    .post(subCategoryController.createSubCategory);
 
+router
+   .route("/:id")
+   .get(subCategoryController.getSubCategoriesById)
+   .delete(subCategoryController.deleteSubCategoryById)
+
 module.exports = router;

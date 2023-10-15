@@ -1,7 +1,7 @@
 const Category = require("../models/category.model");
 
 exports.getCategoryService = async (filter, queryObject) => {
-   console.log(filter, queryObject);
+   // console.log(filter, queryObject);
    const categories = await Category.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
