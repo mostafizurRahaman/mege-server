@@ -23,7 +23,7 @@ exports.createSubCategoryService = async (data) => {
          runValidators: true,
       }
    );
-   console.log(updateCategory);
+   // console.log(updateCategory);
    return results;
 };
 

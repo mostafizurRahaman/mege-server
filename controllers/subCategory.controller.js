@@ -93,13 +93,13 @@ exports.deleteSubCategoryById = async (req, res, next) => {
          subCategoryId,
          category
       );
-      console.log(categoryUpdate);
+      // console.log(categoryUpdate);
 
       const productUpdate = await deleteAllProductsOfSubCategoryService(
          products
       );
 
-      console.log(productUpdate);
+      // console.log(productUpdate);
 
       res.status(200).send({
          status: "success",

@@ -83,20 +83,20 @@ exports.deleteCategoryById = async (req, res, next) => {
             message: "category didn't delete with this id",
          });
       }
-      console.log(subCategories);
+      
 
       //  delete Sub category under this category :
       const removeSelfSub = await deleteCategoriesSubCategoryService(
          subCategories
       );
-      console.log(removeSelfSub);
+      // console.log(removeSelfSub);
 
       //  delete products under this category :
 
       const removeProducts = await deleteProductUnderCategoryService(
          categoryId
       );
-      console.log(removeProducts);
+      // console.log(removeProducts);
 
       res.status(200).send({
          status: "success",
