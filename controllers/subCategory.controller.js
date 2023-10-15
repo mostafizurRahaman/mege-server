@@ -82,7 +82,7 @@ exports.deleteSubCategoryById = async (req, res, next) => {
       const deleteSubCategory = await deleteSubCategoryServiceById(
          subCategoryId
       );
-      if (!deleteSubCategory) {
+      if (!deleteSubCategory.deletedCount) {
          return res.status(400).send({
             status: "failed",
             message: "Sub category not delete with this id",
