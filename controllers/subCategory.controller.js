@@ -10,6 +10,7 @@ const {
 exports.getSubCategories = async (req, res, next) => {
    try {
       const filter = { ...req.query };
+   
       const queryObject = {};
       const excludedFields = ["page", "limit", "sort"];
       excludedFields.map((i) => delete filter[i]);

@@ -3,7 +3,7 @@ const SubCategory = require("../models/subcategory.model");
 const Product = require("../models/product.model");
 
 exports.getAllSubCategoriesService = async (filter, queryObject) => {
-   // console.log("", queryObject, filter);
+   console.log("subcategory", queryObject, filter);
    const subCategories = await SubCategory.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
@@ -42,7 +42,6 @@ exports.removeSubCategoryFromCategoryService = async (subId, category) => {
       { _id: category.id },
       { $pull: { subCategories: subId } }
    );
-   
 
    return result;
 };
