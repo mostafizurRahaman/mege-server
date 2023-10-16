@@ -20,6 +20,7 @@ exports.getCategories = async (req, res, next) => {
          queryObject.limit = parseInt(limit);
       }
       const categories = await getCategoryService(filter, queryObject);
+      console.log(categories);
       res.status(200).send({
          status: "success",
          message: "categories found successfully",
@@ -56,6 +57,7 @@ exports.getCategoryById = async (req, res, next) => {
       res.status(200).send({
          status: "success",
          message: "category found successfully",
+         data: category,
       });
    } catch (err) {
       next(err);
@@ -83,7 +85,6 @@ exports.deleteCategoryById = async (req, res, next) => {
             message: "category didn't delete with this id",
          });
       }
-      
 
       //  delete Sub category under this category :
       const removeSelfSub = await deleteCategoriesSubCategoryService(
