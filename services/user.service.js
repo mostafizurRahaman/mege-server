@@ -7,8 +7,8 @@ exports.signUpService = async (data) => {
 };
 
 exports.getAllUserService = async (filter, queryObject) => {
-   console.log(filter);
-   console.log(queryObject);
+   // console.log(filter);
+   // console.log(queryObject);
    const user = await User.find(filter)
       .select("-password")
       .skip(queryObject.skip)

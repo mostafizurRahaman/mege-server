@@ -2,7 +2,7 @@ const Product = require("../models/product.model");
 const SubCategory = require("../models/subcategory.model");
 
 exports.getAllProductService = async (filter, queryObject) => {
-   console.log(filter);
+   // console.log(filter);
    const products = await Product.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
@@ -26,7 +26,7 @@ exports.createProductService = async (data) => {
          runValidators: true,
       }
    );
-   console.log(updateSubCategory);
+   // console.log(updateSubCategory);
    return result;
 };
 
@@ -44,7 +44,7 @@ exports.deleteProductByIdService = async (product) => {
          runValidators: true,
       }
    );
-   console.log(removeFromSub);
+   // console.log(removeFromSub);
    if (removeFromSub.modifiedCount) {
       const result = await Product.deleteOne({ _id: product._id });
       return result;

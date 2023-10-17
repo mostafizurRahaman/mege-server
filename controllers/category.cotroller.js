@@ -11,14 +11,15 @@ exports.getCategories = async (req, res, next) => {
    try {
       const filter = { ...req.query };
       const queryObject = {};
-      const excludedFields = ["page", "limit"];
+      const excludedFields = ["page", "limit", "sort"];
       excludedFields.map((i) => delete filter[i]);
 
       if (req.query.page) {
-         const { page = 1, limit = 5 } = req.query;
+         const { page = 1, limit = 0 } = req.query;
          queryObject.skip = (page - 1) * (limit * 1);
          queryObject.limit = parseInt(limit);
       }
+
       const categories = await getCategoryService(filter, queryObject);
       console.log(categories);
       res.status(200).send({

@@ -20,8 +20,8 @@ const categorySchema = mongoose.Schema(
       subCategories: [
          {
             type: ObjectId,
-            required: true,
             ref: "SubCategory",
+            required: true,
          },
       ],
       logo: {

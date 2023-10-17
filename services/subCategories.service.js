@@ -3,7 +3,7 @@ const SubCategory = require("../models/subcategory.model");
 const Product = require("../models/product.model");
 
 exports.getAllSubCategoriesService = async (filter, queryObject) => {
-   console.log("subcategory", queryObject, filter);
+   // console.log("subcategory", queryObject, filter);
    const subCategories = await SubCategory.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
@@ -28,7 +28,7 @@ exports.createSubCategoryService = async (data) => {
 };
 
 exports.getSubCategoryServiceById = async (id) => {
-   const result = await SubCategory.findById(id);
+   const result = await SubCategory.findById(id).populate("products");
    return result;
 };
 
