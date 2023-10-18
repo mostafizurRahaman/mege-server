@@ -15,17 +15,11 @@ const bannerSchema = mongoose.Schema(
       description: {
          type: String,
          trim: true,
-
          minLength: [50, "description should be minimum 50 char"],
          maxLength: [120, "description should be maximum 120 char"],
          required: [true, "please provide a description"],
       },
-      offerRunningId: {
-         type: ObjectId,
-         required: [true, "please provide a valid id"],
-         ref: "SubCategory",
-      },
-      ButtonText: {
+      buttonText: {
          type: String,
          required: [true, "please provide button text"],
       },
@@ -33,6 +27,25 @@ const bannerSchema = mongoose.Schema(
          type: String,
          validate: [validator.isURL, "Please provide valid URL"],
          required: [true, "please provide an URL"],
+      },
+      offerType: {
+         type: String,
+         enum: {
+            values: ["category", "sub-category", "product"],
+            message: "offerType ",
+         },
+      },
+      offerId: {
+         type: ObjectId,
+         ref: "Product",
+         required: [true, "please provide offerItem Id"],
+      },
+      status: {
+         type: String,
+         enum: {
+            values: ["active", "in-active"],
+            message: "{VALUE} shouldn't banner",
+         },
       },
       createdBy: {
          name: {
@@ -49,6 +62,6 @@ const bannerSchema = mongoose.Schema(
    }
 );
 
-const BannerModel = mongoose.model("bannerSchema", bannerSchema);
+const BannerModel = mongoose.model("BannerModel", bannerSchema);
 
 module.exports = BannerModel;
