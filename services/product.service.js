@@ -51,3 +51,8 @@ exports.deleteProductByIdService = async (product) => {
    }
    throw new Error("Product not deleted");
 };
+
+exports.getCartedProductService = async (ids) => {
+   const products = await Product.find({ _id: { $in: ids } });
+   return products;
+};

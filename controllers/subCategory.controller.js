@@ -5,12 +5,13 @@ const {
    deleteSubCategoryServiceById,
    removeSubCategoryFromCategoryService,
    deleteAllProductsOfSubCategoryService,
+   getSubCategoryByPathNameService,
 } = require("../services/subCategories.service");
 
 exports.getSubCategories = async (req, res, next) => {
    try {
       const filter = { ...req.query };
-   
+
       const queryObject = {};
       const excludedFields = ["page", "limit", "sort"];
       excludedFields.map((i) => delete filter[i]);
@@ -79,7 +80,7 @@ exports.deleteSubCategoryById = async (req, res, next) => {
          });
       }
       const { _id: subCategoryId, products, category } = subCategory;
-      console.log(products);
+      // console.log(products);
       const deleteSubCategory = await deleteSubCategoryServiceById(
          subCategoryId
       );
@@ -104,6 +105,33 @@ exports.deleteSubCategoryById = async (req, res, next) => {
       res.status(200).send({
          status: "success",
          message: "sub category delete successfully",
+      });
+   } catch (err) {
+      next(err);
+   }
+};
+
+//  get sub-category  by pathname:
+exports.getSubCategoryByPathName = async (req, res, next) => {
+   try {
+      const { path } = req.params;
+      if (!path) {
+         return res.status(400).send({
+            status: "failed",
+            message: "please provide a pathname",
+         });
+      }
+      const subCategory = await getSubCategoryByPathNameService(path);
+      if (!subCategory) {
+         return res.status(400).send({
+            status: "failed",
+            message: "sub-category didn't exist with this pathname",
+         });
+      }
+      res.status(200).send({
+         status: "success",
+         message: "sub-category found with this pathname",
+         data: subCategory,
       });
    } catch (err) {
       next(err);

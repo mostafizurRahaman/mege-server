@@ -26,6 +26,12 @@ exports.getCategoryServiceById = async (id) => {
    return category;
 };
 
+exports.getCategoryPathNameService = async (path) => {
+   const category = await Category.findOne({ path: `/${path}` }).populate(
+      "subCategories"
+   );
+   return category;
+};
 exports.deleteCategoryByIdService = async (id) => {
    const result = await Category.deleteOne({ _id: id });
    return result;

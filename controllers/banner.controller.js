@@ -5,6 +5,7 @@ const {
    getBannerByIdService,
    updateBannerByIdService,
 } = require("../services/banner.service");
+const { getCategoryById } = require("./category.cotroller");
 
 //  get all banners:
 exports.getAllBanners = async (req, res, next) => {
@@ -123,3 +124,4 @@ exports.deleteBanner = async (req, res, next) => {
       next(err);
    }
 };
+

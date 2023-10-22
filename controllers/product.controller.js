@@ -3,6 +3,7 @@ const {
    createProductService,
    getProductByIdService,
    deleteProductByIdService,
+   getCartedProductService,
 } = require("../services/product.service");
 
 exports.getAllProducts = async (req, res, next) => {
@@ -81,6 +82,27 @@ exports.deleteProductById = async (req, res, next) => {
       res.status(200).send({
          status: "success",
          message: "Product deleted successfully",
+      });
+   } catch (err) {
+      next(err);
+   }
+};
+
+//  get carted Products :
+exports.getCartedProducts = async (req, res, next) => {
+   try {
+      const { ids } = req.body;
+      if (!ids?.length) {
+         return res.status(400).send({
+            status: "failed",
+            message: "ids not found",
+         });
+      }
+      const products = await getCartedProductService(ids);
+      res.status(200).send({
+         status: "success",
+         message: "Products found by ids",
+         data: products,
       });
    } catch (err) {
       next(err);

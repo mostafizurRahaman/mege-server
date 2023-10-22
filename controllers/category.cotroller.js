@@ -5,6 +5,7 @@ const {
    deleteCategoryByIdService,
    deleteCategoriesSubCategoryService,
    deleteProductUnderCategoryService,
+   getCategoryPathNameService,
 } = require("../services/category.service");
 
 exports.getCategories = async (req, res, next) => {
@@ -21,7 +22,7 @@ exports.getCategories = async (req, res, next) => {
       }
 
       const categories = await getCategoryService(filter, queryObject);
-      console.log(categories);
+      // console.log(categories);
       res.status(200).send({
          status: "success",
          message: "categories found successfully",
@@ -106,6 +107,33 @@ exports.deleteCategoryById = async (req, res, next) => {
          removeSelfSub: removeProducts,
          removeProducts: removeProducts,
          data: result,
+      });
+   } catch (err) {
+      next(err);
+   }
+};
+
+//  get category by pathname:
+exports.getCategoryWithPathname = async (req, res, next) => {
+   try {
+      const { path } = req.params;
+      if (!path) {
+         return res.status(400).send({
+            status: "failed",
+            message: "please provide a pathname",
+         });
+      }
+      const category = await getCategoryPathNameService(path);
+      if (!category) {
+         return res.status(400).send({
+            status: "failed",
+            message: "category didn't exist with this pathname",
+         });
+      }
+      res.status(200).send({
+         status: "success",
+         message: "category found with this pathname",
+         data: category,
       });
    } catch (err) {
       next(err);

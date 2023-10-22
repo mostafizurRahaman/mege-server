@@ -4,6 +4,7 @@ const Product = require("../models/product.model");
 
 exports.getAllSubCategoriesService = async (filter, queryObject) => {
    // console.log("subcategory", queryObject, filter);
+   console.log(filter);
    const subCategories = await SubCategory.find(filter)
       .skip(queryObject.skip)
       .limit(queryObject.limit);
@@ -31,6 +32,12 @@ exports.getSubCategoryServiceById = async (id) => {
    const result = await SubCategory.findById(id).populate("products");
    return result;
 };
+exports.getSubCategoryByPathNameService = async (path) => {
+   const subCategory = await SubCategory.findOne({ path: `/${path}` }).populate(
+      "products"
+   );
+   return subCategory;
+};
 
 exports.deleteSubCategoryServiceById = async (id) => {
    const result = await SubCategory.deleteOne({ _id: id });
@@ -50,3 +57,4 @@ exports.deleteAllProductsOfSubCategoryService = async (products) => {
    const result = Product.deleteMany({ _id: { $in: products } });
    return result;
 };
+
